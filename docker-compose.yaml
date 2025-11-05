@@ -7,8 +7,7 @@ services:
     devices:
 #      - /dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AL00AKZQ-if00-port0:/dev/vitocal:rwm
 #     On Synology we can't use the serial-by-id path
-      - /dev/vitocal:/dev/vitocal:rwm
-      - /dev/bus/usb:/dev/bus/usb:rwm
+      - /dev/ttyUSB0:/dev/vitocal:rwm
     environment:
       MQTTHOST: ${MQTTHOST}
       MQTTPORT: ${MQTTPORT}
@@ -20,8 +19,3 @@ services:
       COMMANDS: ${COMMANDS}
     volumes:
       - ./config:/config
-networks:
-  default:
-    name: docker_default
-    external: true
-
