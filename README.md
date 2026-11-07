@@ -26,6 +26,18 @@ For the mqtt broker you need to define the following environment variables:
 | MQTTTOPIC     | prefix for topic followed by the command | `smarthome/optolink/` |
 | MQTTUSER      | if mqtt broker requires authentification |  `mqtt_user` |
 | MQTTPASSWORD  | if mqtt broker requires authentification |  `secret123` |
+| MQTT_DISCOVERY_PREFIX | optional prefix for Home Assistant MQTT discovery (default: `homeassistant`) | `homeassistant` |
+
+### Home Assistant Auto Discovery
+
+The container automatically publishes Home Assistant MQTT discovery configurations upon startup via `config/mqtt_discovery.sh`.
+Entities are automatically registered under the device **Zentralheizung** (model KO1B) without requiring manual configuration in Home Assistant's `configuration.yaml` or `mqtt.yaml`:
+- **Sensors**: Outside temperature (`getTempA`), domestic hot water (`getTempWWist`), boiler temperature (`getTempKist`), flow temperature (`getTempVListM1`), cylinder temperature (`getTempStp`), and pump status (`getPumpeStatusM1`).
+- **Binary Sensors**: Burner running (`getBrennerStatus`) and circulation pump active (`getPumpeStatusZirku`).
+- **Switches**: Party mode (`getBetriebPartyM1` / `setBetriebPartyM1`) and Economy mode (`getBetriebSparM1` / `setBetriebSparM1`).
+- **Selects**: Operation mode (`getBetriebArtM1` / `setBetriebArtM1`).
+- **Numbers**: Heating curve slope (`setNeigungM1`), level shift (`setNiveauM1`), DHW target temp (`setTempWWsoll`), room setpoint normal (`setTempRaumNorSollM1`), room setpoint reduced/night (`setTempRaumRedSollM1`), and party temperature (`setTempPartyM1`).
+- **Daily Schedule Controls**: Native Time picker entities (`time`) with individual fields for Start 1, Ende 1, Start 2, and Ende 2 for Monday through Sunday for room heating (`M1`), domestic hot water (`WW`), and circulation pump (`Zirku`).
 
 ### Commands
 

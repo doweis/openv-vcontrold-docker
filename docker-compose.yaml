@@ -19,3 +19,4 @@ services:
       COMMANDS: ${COMMANDS}
     volumes:
       - ./config:/config
+      - ./startup.sh:/startup.sh

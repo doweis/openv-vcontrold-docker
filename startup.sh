@@ -21,6 +21,9 @@ if [ $MQTTACTIVE = true ]; then
 	echo "MQTT: aktiv (var = $MQTTACTIVE)"
 	echo "Aktualisierungsintervall: $INTERVAL sec"
         echo "Lese Parameter: $COMMANDS"
+        if [ -f /config/mqtt_discovery.sh ]; then
+            /config/mqtt_discovery.sh
+        fi
         /config/mqtt_sub.sh
 	while sleep $INTERVAL; do
                 vclient -h 127.0.0.1:3002 -c ${COMMANDS} -J -o result.json
